@@ -3491,6 +3491,12 @@
       "value": "(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius"
     }
   ],
+  "NE54Uu": [
+    {
+      "type": 0,
+      "value": "Copied!"
+    }
+  ],
   "NGJ00e": [
     {
       "type": 0,
@@ -3603,6 +3609,12 @@
     {
       "type": 0,
       "value": "OK"
+    }
+  ],
+  "OBKhVi": [
+    {
+      "type": 0,
+      "value": "This Action/Trigger cannot be copied."
     }
   ],
   "ODQCKj": [
@@ -6375,6 +6387,12 @@
       "value": "Redo"
     }
   ],
+  "i1vHaT": [
+    {
+      "type": 0,
+      "value": "Copy Action"
+    }
+  ],
   "i4C4aB": [
     {
       "type": 0,
@@ -7321,6 +7339,12 @@
     {
       "type": 0,
       "value": "Invalid integer value"
+    }
+  ],
+  "oRxmXb": [
+    {
+      "type": 0,
+      "value": "Copy Trigger"
     }
   ],
   "oTBkbU": [

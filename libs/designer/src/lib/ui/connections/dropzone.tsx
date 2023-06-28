@@ -6,14 +6,14 @@ import { BlockDropTarget } from './dynamicsvgs/blockdroptarget';
 import AddBranchIcon from './edgeContextMenuSvgs/addBranchIcon.svg';
 import AddNodeIcon from './edgeContextMenuSvgs/addNodeIcon.svg';
 import { ActionButton, Callout, DirectionalHint, FocusZone } from '@fluentui/react';
-import { useBoolean } from '@fluentui/react-hooks';
 import { css } from '@fluentui/utilities';
 import { ActionButtonV2 } from '@microsoft/designer-ui';
 import { containsIdTag, guid, removeIdTag } from '@microsoft/utils-logic-apps';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
+import { useOnViewportChange } from 'reactflow';
 
 export interface DropZoneProps {
   graphId: string;
@@ -25,7 +25,13 @@ export interface DropZoneProps {
 export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, isLeaf = false }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
-  const [showCallout, { toggle: toggleIsCalloutVisible }] = useBoolean(false);
+  const [showCallout, setShowCallout] = useState(false);
+
+  useOnViewportChange({
+    onStart: useCallback(() => {
+      setShowCallout(false);
+    }, []),
+  });
 
   const newActionText = intl.formatMessage({
     defaultMessage: 'Add an action',
@@ -102,7 +108,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
 
   const actionButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    toggleIsCalloutVisible();
+    setShowCallout(!showCallout);
   };
 
   const buttonId = `msla-edge-button-${parentId}-${childId}`.replace(/\W/g, '-');
@@ -133,8 +139,8 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
               role="dialog"
               gapSpace={0}
               target={`#${buttonId}`}
-              onDismiss={toggleIsCalloutVisible}
-              onMouseLeave={toggleIsCalloutVisible}
+              onDismiss={() => setShowCallout(false)}
+              onMouseLeave={() => setShowCallout(false)}
               directionalHint={DirectionalHint.bottomCenter}
               setInitialFocus
             >
