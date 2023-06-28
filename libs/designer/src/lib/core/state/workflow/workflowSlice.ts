@@ -128,6 +128,9 @@ export const workflowSlice = createSlice({
 
       moveNodeInWorkflow(currentNode, oldGraph, newGraph, action.payload.relationshipIds, state.nodesMetadata, state);
     },
+    copyNode: (state: WorkflowState, action: PayloadAction<{ nodeId: string }>) => {
+      console.log(action.payload.nodeId);
+    },
     deleteNode: (state: WorkflowState, action: PayloadAction<DeleteNodePayload>) => {
       if (!state.graph) {
         return; // log exception
@@ -378,6 +381,7 @@ export const {
   initRunInstance,
   addNode,
   moveNode,
+  copyNode,
   deleteNode,
   deleteSwitchCase,
   updateNodeSizes,

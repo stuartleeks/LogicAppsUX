@@ -37,7 +37,7 @@ import {
   useShouldNodeFocus,
   useRetryHistory,
 } from '../../core/state/workflow/workflowSelectors';
-import { setRepetitionRunData } from '../../core/state/workflow/workflowSlice';
+import { copyNode, setRepetitionRunData } from '../../core/state/workflow/workflowSlice';
 import { getRepetitionName } from '../common/LoopsPager/helper';
 import { DropZone } from '../connections/dropzone';
 import type { ICalloutContentStyles } from '@fluentui/react';
@@ -184,6 +184,7 @@ const DefaultNode = ({ targetPosition = Position.Top, sourcePosition = Position.
   const handleDeleteClick = () => setShowDeleteModal(true);
   const handleCopyClick = () => {
     setShowCopyCallout(true);
+    dispatch(copyNode({ nodeId: id }));
     setTimeout(() => {
       setShowCopyCallout(false);
     }, 3000);
@@ -313,6 +314,7 @@ const DefaultNode = ({ targetPosition = Position.Top, sourcePosition = Position.
     description: 'Copied text',
   });
   const tooltipId = useId(id);
+
   return (
     <>
       <div className="nopan" id={tooltipId}>
