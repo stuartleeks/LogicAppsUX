@@ -29,8 +29,10 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
 
   useOnViewportChange({
     onStart: useCallback(() => {
-      setShowCallout(false);
-    }, []),
+      if (showCallout) {
+        setShowCallout(false);
+      }
+    }, [showCallout]),
   });
 
   const newActionText = intl.formatMessage({
@@ -41,6 +43,11 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
   const newBranchText = intl.formatMessage({
     defaultMessage: 'Add a parallel branch',
     description: 'Text for button to add a parallel branch',
+  });
+
+  const pasteFromClipboard = intl.formatMessage({
+    defaultMessage: 'Paste an action',
+    description: 'Text for button to paste an action from clipboard',
   });
 
   const openAddNodePanel = useCallback(() => {
@@ -54,6 +61,11 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
     const relationshipIds = { graphId, childId: undefined, parentId };
     dispatch(expandDiscoveryPanel({ nodeId: newId, relationshipIds, isParallelBranch: true }));
   }, [dispatch, graphId, parentId]);
+
+  const pasteNode = useCallback(() => {
+    const newId = guid();
+    console.log('pasteNode', newId);
+  }, []);
 
   const upstreamNodesOfChild = useUpstreamNodes(removeIdTag(childId ?? parentId ?? graphId));
   const immediateAncestor = useGetAllOperationNodesWithin(parentId && !containsIdTag(parentId) ? parentId : '');
@@ -84,6 +96,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
 
   const parentName = useNodeDisplayName(parentId);
   const childName = useNodeDisplayName(childId);
+  const parentSubgraphName = useNodeDisplayName(parentId && containsIdTag(parentId) ? removeIdTag(parentId) : '');
 
   const tooltipText = childId
     ? intl.formatMessage(
@@ -94,6 +107,16 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
         {
           parentName,
           childName,
+        }
+      )
+    : parentSubgraphName
+    ? intl.formatMessage(
+        {
+          defaultMessage: 'Insert a new step in {parentSubgraphName}',
+          description: 'Tooltip for the button to add a new step under subgraph',
+        },
+        {
+          parentSubgraphName,
         }
       )
     : intl.formatMessage(
@@ -162,6 +185,9 @@ export const DropZone: React.FC<DropZoneProps> = ({ graphId, parentId, childId, 
                       {newBranchText}
                     </ActionButton>
                   ) : null}
+                  <ActionButton iconProps={{ iconName: 'Paste' }} onClick={pasteNode}>
+                    {pasteFromClipboard}
+                  </ActionButton>
                 </div>
               </FocusZone>
             </Callout>

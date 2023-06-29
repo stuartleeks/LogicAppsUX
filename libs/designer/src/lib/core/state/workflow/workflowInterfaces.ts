@@ -30,4 +30,5 @@ export interface WorkflowState {
   runInstance: LogicAppsV2.RunInstanceDefinition | null;
   isDirty: boolean;
   originalDefinition: LogicAppsV2.WorkflowDefinition;
+  clipboard: LogicAppsV2.OperationDefinition | null;
 }

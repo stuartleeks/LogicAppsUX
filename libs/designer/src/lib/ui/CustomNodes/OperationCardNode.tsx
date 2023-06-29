@@ -177,8 +177,10 @@ const DefaultNode = ({ targetPosition = Position.Top, sourcePosition = Position.
 
   useOnViewportChange({
     onStart: useCallback(() => {
-      setShowCopyCallout(false);
-    }, []),
+      if (showCopyCallout) {
+        setShowCopyCallout(false);
+      }
+    }, [showCopyCallout]),
   });
 
   const handleDeleteClick = () => setShowDeleteModal(true);
@@ -189,6 +191,7 @@ const DefaultNode = ({ targetPosition = Position.Top, sourcePosition = Position.
       setShowCopyCallout(false);
     }, 3000);
   };
+
   const handleDelete = () => dispatch(deleteOperation({ nodeId: id, isTrigger: !!isTrigger }));
 
   const getMenuItems = (): MenuItemOption[] => {

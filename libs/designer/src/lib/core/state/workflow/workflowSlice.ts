@@ -44,6 +44,7 @@ export const initialWorkflowState: WorkflowState = {
     $schema: constants.SCHEMA.GA_20160601.URL,
     contentVersion: '1.0.0.0',
   },
+  clipboard: null,
 };
 
 export const workflowSlice = createSlice({
@@ -129,7 +130,11 @@ export const workflowSlice = createSlice({
       moveNodeInWorkflow(currentNode, oldGraph, newGraph, action.payload.relationshipIds, state.nodesMetadata, state);
     },
     copyNode: (state: WorkflowState, action: PayloadAction<{ nodeId: string }>) => {
-      console.log(action.payload.nodeId);
+      const { nodeId } = action.payload;
+      const currentNode = getWorkflowNodeFromGraphState(state, nodeId);
+      if (!currentNode) throw new Error('node not set');
+      console.log(currentNode);
+      state.clipboard = currentNode;
     },
     deleteNode: (state: WorkflowState, action: PayloadAction<DeleteNodePayload>) => {
       if (!state.graph) {

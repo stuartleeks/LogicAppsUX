@@ -4177,6 +4177,16 @@
       "value": "minutes"
     }
   ],
+  "RjvpD+": [
+    {
+      "type": 0,
+      "value": "Insert a new step in "
+    },
+    {
+      "type": 1,
+      "value": "parentSubgraphName"
+    }
+  ],
   "RkgScy": [
     {
       "type": 0,
@@ -5367,6 +5377,12 @@
     {
       "type": 0,
       "value": "Collapse Static Result"
+    }
+  ],
+  "ZUCTVP": [
+    {
+      "type": 0,
+      "value": "Paste an action"
     }
   ],
   "ZUaz3Y": [
