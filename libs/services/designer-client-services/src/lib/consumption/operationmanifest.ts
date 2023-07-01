@@ -108,6 +108,7 @@ export class ConsumptionOperationManifestService extends BaseOperationManifestSe
           iconUri: iconUri ?? api?.iconUri,
           connection: startsWith(operationType, openapiconnection) ? { required: true } : undefined,
           ...manifest,
+          connector: { ...manifest.connector, id: connectorId }
         },
       };
 

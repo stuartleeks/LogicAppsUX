@@ -85,6 +85,13 @@ import {
   unmap,
 } from '@microsoft/utils-logic-apps';
 
+const getMergedDynamicState = (extension: any, dynamicState: any): any => {
+  const newValue = { ...dynamicState, ...extension, parameters: { ...dynamicState.parameters, ...extension.parameters } };
+  delete newValue.dynamicState;
+
+  return newValue;
+};
+
 export async function getDynamicValues(
   dependencyInfo: DependencyInfo,
   nodeInputs: NodeInputs,
@@ -103,7 +110,7 @@ export async function getDynamicValues(
       operationInfo.connectorId,
       operationInfo.operationId,
       operationParameters,
-      dynamicState
+      getMergedDynamicState(definition.extension, dynamicState)
     );
   } else if (isLegacyDynamicValuesExtension(definition)) {
     const { connectorId } = operationInfo;
@@ -150,7 +157,7 @@ export async function getDynamicSchema(
   const emptySchema = { ...parameter?.schema };
   try {
     if (isDynamicPropertiesExtension(definition)) {
-      const { dynamicState, parameters } = definition.extension;
+      const { parameters, dynamicState } = definition.extension;
       const operationParameters = getParameterValuesForDynamicInvoke(parameters, nodeInputs, idReplacements, workflowParameters);
       let schema: OpenAPIV2.SchemaObject;
 
@@ -173,12 +180,17 @@ export async function getDynamicSchema(
             : {};
           break;
         default:
+          // eslint-disable-next-line no-case-declarations
+          let updatedDynamicState = { ...dynamicState };
+          if (!updatedDynamicState.extension) {
+            updatedDynamicState = { extension: { ...updatedDynamicState, isInput: undefined }, ...updatedDynamicState };
+          }
           schema = await getDynamicSchemaProperties(
             connectionReference?.connection.id,
             operationInfo.connectorId,
             operationInfo.operationId,
             operationParameters,
-            dynamicState
+            { extension: getMergedDynamicState(definition.extension, updatedDynamicState.extension), isInput: dynamicState.isInput }
           );
           break;
       }

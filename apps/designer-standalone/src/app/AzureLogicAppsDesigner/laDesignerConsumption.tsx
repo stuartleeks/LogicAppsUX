@@ -177,7 +177,7 @@ const getDesignerServices = (
   loggerService?: any,
   queryClient?: any
 ): any => {
-  const baseUrl = 'https://management.azure.com';
+  const baseUrl = 'https://centraluseuap.management.azure.com';
   const workflowName = workflowId.split('/').splice(-1)[0];
   const { subscriptionId, resourceGroup } = new ArmParser(workflowId);
 
@@ -274,10 +274,10 @@ const getDesignerServices = (
   });
   const searchService = new ConsumptionSearchService({
     ...defaultServiceParams,
-    openApiConnectionMode: false, // This should be turned on for Open Api testing.
+    openApiConnectionMode: true, // This should be turned on for Open Api testing.
     apiHubServiceDetails: {
       apiVersion: '2018-07-01-preview',
-      openApiVersion: undefined, //'2022-09-01-preview', //Uncomment to test Open Api
+      openApiVersion: '2022-09-01-preview', //Uncomment to test Open Api
       subscriptionId,
       location,
     },

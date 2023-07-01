@@ -101,7 +101,7 @@ function getRequestUrl(options: HttpRequestOptions<unknown>): string {
 
   const uriPath = queryString ? `${uri}?${queryString}` : uri;
   if (uriPath.startsWith('/subscriptions/')) {
-    return `https://management.azure.com${uriPath}`;
+    return `https://centraluseuap.management.azure.com${uriPath}`;
   } else {
     return uriPath;
   }
