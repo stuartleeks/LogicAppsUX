@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.63.8](https://github.com/Azure/LogicAppsUX/compare/v2.63.7...v2.63.8) (2023-09-12)
+
+
+### Bug Fixes
+
+* **vscode): Revert feat(vscode:** Logic App Workspace Local Settings Updates.  ([#3087](https://github.com/Azure/LogicAppsUX/issues/3087)) ([#3299](https://github.com/Azure/LogicAppsUX/issues/3299)) ([2e3000d](https://github.com/Azure/LogicAppsUX/commit/2e3000d706149718efb23f7d8fe82ad6c756e498))
+
 ### [2.63.7](https://github.com/Azure/LogicAppsUX/compare/v2.63.6...v2.63.7) (2023-09-12)
 
 ### [2.63.6](https://github.com/Azure/LogicAppsUX/compare/v2.63.5...v2.63.6) (2023-09-07)
