@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.66.2](https://github.com/Azure/LogicAppsUX/compare/v2.66.1...v2.66.2) (2023-09-13)
+
+
+### Bug Fixes
+
+* **designer:** bind the search operations methods ([#3285](https://github.com/Azure/LogicAppsUX/issues/3285)) ([#3307](https://github.com/Azure/LogicAppsUX/issues/3307)) ([21a0127](https://github.com/Azure/LogicAppsUX/commit/21a012792578783562ae322b95420818da348509))
+
 ### [2.66.1](https://github.com/Azure/LogicAppsUX/compare/v2.66.0...v2.66.1) (2023-09-13)
 
 
