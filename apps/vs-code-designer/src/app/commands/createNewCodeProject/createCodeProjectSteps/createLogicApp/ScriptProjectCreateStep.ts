@@ -6,8 +6,7 @@ import { gitignoreFileName, hostFileName, localSettingsFileName } from '../../..
 import { addDefaultBundle } from '../../../../utils/bundleFeed';
 import { confirmOverwriteFile, writeFormattedJson } from '../../../../utils/fs';
 import { ProjectCodeCreateStepBase } from '../../CodeProjectBase/ProjectCodeCreateStepBase';
-import { nonNullProp } from '@microsoft/vscode-azext-utils';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
+import { nonNullProp, type IActionContext } from '@microsoft/vscode-azext-utils';
 import type { IHostJsonV1, IHostJsonV2, ILocalSettingsJson, IProjectWizardContext } from '@microsoft/vscode-extension';
 import { FuncVersion } from '@microsoft/vscode-extension';
 import * as fse from 'fs-extra';

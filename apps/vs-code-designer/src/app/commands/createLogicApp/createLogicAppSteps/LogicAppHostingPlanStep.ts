@@ -3,8 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { localize } from '../../../../localize';
-import type { IAppServiceWizardContext } from '@microsoft/vscode-azext-azureappservice';
-import { AppServicePlanListStep, WebsiteOS } from '@microsoft/vscode-azext-azureappservice';
+import { AppServicePlanListStep, WebsiteOS, type IAppServiceWizardContext } from '@microsoft/vscode-azext-azureappservice';
 import { AzureWizardPromptStep } from '@microsoft/vscode-azext-utils';
 import type { IAzureQuickPickItem, IWizardOptions } from '@microsoft/vscode-azext-utils';
 

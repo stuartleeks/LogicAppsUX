@@ -6,15 +6,21 @@ import { workflowType } from '../../../../../constants';
 import { localize } from '../../../../../localize';
 import { ScriptWorkflowNameStep } from '../../../createCodeless/createCodelessSteps/ScriptSteps/ScriptWorkflowNameStep';
 import { CodelessFunctionWorkflow } from './CodelessFunctionWorkflow';
-import type { AzureWizardExecuteStep, IAzureQuickPickItem, IWizardOptions } from '@microsoft/vscode-azext-utils';
-import { nonNullProp, AzureWizardPromptStep } from '@microsoft/vscode-azext-utils';
-import type {
-  IWorkflowStateTypeStepOptions,
-  IWorkflowTemplate,
-  IFunctionWizardContext,
-  ProjectLanguage,
+import {
+  nonNullProp,
+  AzureWizardPromptStep,
+  type AzureWizardExecuteStep,
+  type IAzureQuickPickItem,
+  type IWizardOptions,
+} from '@microsoft/vscode-azext-utils';
+import {
+  TemplateCategory,
+  TemplatePromptResult,
+  type IWorkflowStateTypeStepOptions,
+  type IWorkflowTemplate,
+  type IFunctionWizardContext,
+  type ProjectLanguage,
 } from '@microsoft/vscode-extension';
-import { TemplateCategory, TemplatePromptResult } from '@microsoft/vscode-extension';
 
 /**
  * This class represents a prompt step that allows the user to select a workflow type for their Azure Functions project.

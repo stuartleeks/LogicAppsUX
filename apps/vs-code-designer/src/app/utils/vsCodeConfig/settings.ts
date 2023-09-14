@@ -5,11 +5,9 @@
 import { ext } from '../../../extensionVariables';
 import { localize } from '../../../localize';
 import { isString } from '@microsoft/utils-logic-apps';
-import type { IActionContext, IAzureQuickPickItem, IAzureQuickPickOptions } from '@microsoft/vscode-azext-utils';
-import { openUrl } from '@microsoft/vscode-azext-utils';
+import { openUrl, type IActionContext, type IAzureQuickPickItem, type IAzureQuickPickOptions } from '@microsoft/vscode-azext-utils';
 import { FuncVersion, ProjectLanguage, WorkerRuntime } from '@microsoft/vscode-extension';
-import { ConfigurationTarget, Uri, workspace } from 'vscode';
-import type { WorkspaceConfiguration, WorkspaceFolder } from 'vscode';
+import { ConfigurationTarget, Uri, workspace, type WorkspaceConfiguration, type WorkspaceFolder } from 'vscode';
 
 /**
  * Gets global setting from vscode.

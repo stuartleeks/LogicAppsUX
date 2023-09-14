@@ -26,10 +26,15 @@ import { getFramework, validateDotnetInstalled } from '../../../../utils/dotnet/
 import { writeFormattedJson } from '../../../../utils/fs';
 import { parseJson } from '../../../../utils/parseJson';
 import { WorkflowCreateStepBase } from '../../../createCodeless/createCodelessSteps/WorkflowCreateStepBase';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { DialogResponses, nonNullProp, parseError } from '@microsoft/vscode-azext-utils';
-import { WorkflowProjectType, MismatchBehavior } from '@microsoft/vscode-extension';
-import type { IFunctionWizardContext, IWorkflowTemplate, IHostJsonV2, StandardApp } from '@microsoft/vscode-extension';
+import { DialogResponses, nonNullProp, parseError, type IActionContext } from '@microsoft/vscode-azext-utils';
+import {
+  WorkflowProjectType,
+  MismatchBehavior,
+  type IFunctionWizardContext,
+  type IWorkflowTemplate,
+  type IHostJsonV2,
+  type StandardApp,
+} from '@microsoft/vscode-extension';
 import * as fse from 'fs-extra';
 import * as path from 'path';
 import type { MessageItem } from 'vscode';

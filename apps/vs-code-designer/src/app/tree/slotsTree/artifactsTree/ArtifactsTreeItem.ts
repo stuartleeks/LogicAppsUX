@@ -4,8 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { localize } from '../../../../localize';
 import type { SlotTreeItem } from '../SlotTreeItem';
-import type { ParsedSite } from '@microsoft/vscode-azext-azureappservice';
-import { FolderTreeItem } from '@microsoft/vscode-azext-azureappservice';
+import { FolderTreeItem, type ParsedSite } from '@microsoft/vscode-azext-azureappservice';
 
 export class ArtifactsTreeItem extends FolderTreeItem {
   public static contextValue = 'Artifacts';

@@ -11,10 +11,8 @@ import { verifyInitForVSCode } from '../../utils/vsCodeConfig/verifyInitForVSCod
 import { getContainingWorkspace, getWorkspaceFolder } from '../../utils/workspace';
 import { WorkflowStateTypeStep } from './createCodelessSteps/WorkflowStateTypeStep';
 import { isString } from '@microsoft/utils-logic-apps';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { AzureWizard } from '@microsoft/vscode-azext-utils';
-import type { IFunctionWizardContext, FuncVersion } from '@microsoft/vscode-extension';
-import { ProjectLanguage, WorkflowProjectType } from '@microsoft/vscode-extension';
+import { AzureWizard, type IActionContext } from '@microsoft/vscode-azext-utils';
+import { ProjectLanguage, WorkflowProjectType, type IFunctionWizardContext, type FuncVersion } from '@microsoft/vscode-extension';
 import type { WorkspaceFolder } from 'vscode';
 
 export async function createCodeless(

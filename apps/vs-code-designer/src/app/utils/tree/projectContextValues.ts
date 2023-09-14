@@ -4,8 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { contextValuePrefix, contextValueSeparator } from '../../../constants';
 import { isString } from '@microsoft/utils-logic-apps';
-import type { ProjectAccess, ProjectResource } from '@microsoft/vscode-extension';
-import { ProjectSource } from '@microsoft/vscode-extension';
+import { ProjectSource, type ProjectAccess, type ProjectResource } from '@microsoft/vscode-extension';
 
 export function isProjectCV(contextValue: string | RegExp): boolean {
   const data: string = normalizeContextValue(contextValue);

@@ -36,8 +36,7 @@ import {
   getInputs,
 } from '../../../../../utils/vsCodeConfig/tasks';
 import { isMultiRootWorkspace } from '../../../../../utils/workspace';
-import { AzureWizardExecuteStep, nonNullProp } from '@microsoft/vscode-azext-utils';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
+import { AzureWizardExecuteStep, nonNullProp, type IActionContext } from '@microsoft/vscode-azext-utils';
 import type {
   ISettingToAdd,
   IProjectWizardContext,
