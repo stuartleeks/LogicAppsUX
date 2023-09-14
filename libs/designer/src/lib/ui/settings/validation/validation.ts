@@ -159,7 +159,12 @@ export const validateNodeSettings = (
             }
           }
         }
-        if (requestOptions?.isSupported && requestOptions.value?.timeout && !isISO8601(requestOptions.value.timeout)) {
+        if (
+          requestOptions?.isSupported &&
+          requestOptions.value?.timeout &&
+          !isTemplateExpression(requestOptions.value.timeout) &&
+          !isISO8601(requestOptions.value.timeout)
+        ) {
           validationErrors.push({
             key: ValidationErrorKeys.TIMEOUT_VALUE_INVALID,
             errorType: ValidationErrorType.ERROR,
