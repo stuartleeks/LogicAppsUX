@@ -14,6 +14,7 @@ import type { RemoteWorkflowsTreeItem } from './RemoteWorkflowsTreeItem';
 import type { StringDictionary } from '@azure/arm-appservice';
 import type { ServiceClientCredentials } from '@azure/ms-rest-js';
 import { isEmptyString, HTTP_METHODS } from '@microsoft/utils-logic-apps';
+import type { AzExtPipelineResponse } from '@microsoft/vscode-azext-azureutils';
 import { AzExtTreeItem, DialogResponses } from '@microsoft/vscode-azext-utils';
 import type { IActionContext, TreeItemIconPath } from '@microsoft/vscode-azext-utils';
 import { ProjectResource } from '@microsoft/vscode-extension';
@@ -102,7 +103,7 @@ export class RemoteWorkflowTreeItem extends AzExtTreeItem {
     const url = `${this.parent.parent.id}/hostruntime${managementApiPrefix}/workflows/${this.name}/triggers/${triggerName}/listCallbackUrl?api-version=${workflowAppApiVersion}`;
 
     try {
-      const response = await sendAzureRequest(url, this.parent._context, HTTP_METHODS.POST, node.subscription);
+      const response: AzExtPipelineResponse = await sendAzureRequest(url, this.parent._context, HTTP_METHODS.POST, node.subscription);
       return response.parsedBody;
     } catch (error) {
       return undefined;

@@ -13,16 +13,16 @@ import {
   StorageAccountReplication,
 } from '@microsoft/vscode-azext-azureutils';
 import type { INewStorageAccountDefaults } from '@microsoft/vscode-azext-azureutils';
-import type { IWizardOptions } from '@microsoft/vscode-azext-utils';
+import type { IActionContext, IWizardOptions } from '@microsoft/vscode-azext-utils';
 import { AzureWizardPromptStep } from '@microsoft/vscode-azext-utils';
 import type { IFunctionAppWizardContext, ICreateLogicAppContext } from '@microsoft/vscode-extension';
 import { StorageOptions } from '@microsoft/vscode-extension';
 import type { QuickPickItem, QuickPickOptions } from 'vscode';
 
 export class CustomLocationStorageAccountStep extends AzureWizardPromptStep<IFunctionAppWizardContext> {
-  private readonly context: ICreateLogicAppContext;
+  private readonly context: IActionContext & Partial<ICreateLogicAppContext>;
 
-  public constructor(context: ICreateLogicAppContext) {
+  public constructor(context: IActionContext & Partial<ICreateLogicAppContext>) {
     super();
     this.context = context;
   }

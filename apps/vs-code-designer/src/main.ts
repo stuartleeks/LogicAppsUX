@@ -1,15 +1,13 @@
-import { LogicAppResolver } from './LogicAppResolver';
 import { runPostWorkflowCreateStepsFromCache } from './app/commands/createCodeless/createCodelessSteps/WorkflowCreateStepBase';
 import { validateFuncCoreToolsIsLatest } from './app/commands/funcCoreTools/validateFuncCoreToolsIsLatest';
 import { registerCommands } from './app/commands/registerCommands';
-import { getResourceGroupsApi } from './app/resourcesExtension/getExtensionApi';
-import type { AzureAccountTreeItemWithProjects } from './app/tree/AzureAccountTreeItemWithProjects';
+import { LogicAppsBranchDataProvider } from './app/tree/LogicAppsBranchDataProvider';
 import { stopDesignTimeApi } from './app/utils/codeless/startDesignTimeApi';
 import { UriHandler } from './app/utils/codeless/urihandler';
 import { getExtensionVersion } from './app/utils/extension';
 import { registerFuncHostTaskEvents } from './app/utils/funcCoreTools/funcHostTask';
 import { verifyVSCodeConfigOnActivate } from './app/utils/vsCodeConfig/verifyVSCodeConfigOnActivate';
-import { extensionCommand, logicAppFilter } from './constants';
+import { extensionCommand } from './constants';
 import { ext } from './extensionVariables';
 import { registerAppServiceExtensionVariables } from '@microsoft/vscode-azext-azureappservice';
 import {
@@ -18,9 +16,11 @@ import {
   registerEvent,
   registerReportIssueCommand,
   registerUIExtensionVariables,
-  getAzExtResourceType,
+  createExperimentationService,
+  TreeElementStateManager,
+  type IActionContext,
 } from '@microsoft/vscode-azext-utils';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
+import { AzExtResourceType, getAzureResourcesExtensionApi } from '@microsoft/vscode-azureresources-api';
 import * as vscode from 'vscode';
 
 const perfStats = {
@@ -44,10 +44,8 @@ export async function activate(context: vscode.ExtensionContext) {
     validateFuncCoreToolsIsLatest();
 
     ext.extensionVersion = getExtensionVersion();
-    ext.rgApi = await getResourceGroupsApi();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    ext.azureAccountTreeItem = ext.rgApi.appResourceTree._rootTreeItem as AzureAccountTreeItemWithProjects;
 
     callWithTelemetryAndErrorHandling(extensionCommand.validateLogicAppProjects, async (actionContext: IActionContext) => {
       await verifyVSCodeConfigOnActivate(actionContext, vscode.workspace.workspaceFolders);
@@ -62,13 +60,16 @@ export async function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(ext.outputChannel);
-    context.subscriptions.push(ext.azureAccountTreeItem);
 
     registerReportIssueCommand(extensionCommand.reportIssue);
     registerCommands();
     registerFuncHostTaskEvents();
 
-    ext.rgApi.registerApplicationResourceResolver(getAzExtResourceType(logicAppFilter), new LogicAppResolver());
+    ext.experimentationService = await createExperimentationService(context);
+    ext.state = new TreeElementStateManager();
+    ext.rgApiV2 = await getAzureResourcesExtensionApi(context, '2.0.0');
+    ext.branchDataProvider = new LogicAppsBranchDataProvider();
+    ext.rgApiV2.resources.registerAzureResourceBranchDataProvider(AzExtResourceType.LogicApp, ext.branchDataProvider);
 
     vscode.window.registerUriHandler(new UriHandler());
   });

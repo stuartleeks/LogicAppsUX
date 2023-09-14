@@ -21,7 +21,7 @@ export class ArtifactsTreeItem extends FolderTreeItem {
     super(parent, {
       site: client,
       label: localize('Artifacts', 'Artifacts'),
-      path: '/site/wwwroot/Artifacts',
+      url: '/site/wwwroot/Artifacts',
       isReadOnly: true,
     });
   }

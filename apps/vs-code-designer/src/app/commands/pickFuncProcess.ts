@@ -7,21 +7,21 @@ import { ext } from '../../extensionVariables';
 import { localize } from '../../localize';
 import { preDebugValidate } from '../debug/validatePreDebug';
 import { getProjFiles } from '../utils/dotnet/dotnet';
-import { getFuncPortFromTaskOrProject, isFuncHostTask, runningFuncTaskMap } from '../utils/funcCoreTools/funcHostTask';
-import type { IRunningFuncTask } from '../utils/funcCoreTools/funcHostTask';
+import {
+  getFuncPortFromTaskOrProject,
+  isFuncHostTask,
+  runningFuncTaskMap,
+  type IRunningFuncTask,
+} from '../utils/funcCoreTools/funcHostTask';
 import { isTimeoutError } from '../utils/requestUtils';
 import { executeIfNotActive } from '../utils/taskUtils';
 import { getWorkspaceSetting } from '../utils/vsCodeConfig/settings';
 import { getWindowsProcess } from '../utils/windowsProcess';
-import type { HttpOperationResponse } from '@azure/ms-rest-js';
 import { delay } from '@azure/ms-rest-js';
 import { HTTP_METHODS } from '@microsoft/utils-logic-apps';
-import type { AzExtRequestPrepareOptions } from '@microsoft/vscode-azext-azureutils';
-import { sendRequestWithTimeout } from '@microsoft/vscode-azext-azureutils';
-import { UserCancelledError } from '@microsoft/vscode-azext-utils';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { ProjectLanguage } from '@microsoft/vscode-extension';
-import type { IPreDebugValidateResult, IProcessInfo } from '@microsoft/vscode-extension';
+import { sendRequestWithTimeout, type AzExtRequestPrepareOptions } from '@microsoft/vscode-azext-azureutils';
+import { UserCancelledError, type IActionContext } from '@microsoft/vscode-azext-utils';
+import { ProjectLanguage, type IPreDebugValidateResult, type IProcessInfo } from '@microsoft/vscode-extension';
 import * as unixPsTree from 'ps-tree';
 import * as vscode from 'vscode';
 import * as parse from 'yargs-parser';
@@ -170,7 +170,7 @@ async function startFuncTask(
 
           try {
             // wait for status url to indicate functions host is running
-            const response: HttpOperationResponse = await sendRequestWithTimeout(context, statusRequest, statusRequestTimeout, undefined);
+            const response = await sendRequestWithTimeout(context, statusRequest, statusRequestTimeout, undefined);
             if (response.parsedBody.state.toLowerCase() === 'running') {
               funcTaskReadyEmitter.fire(workspaceFolder);
               return taskInfo;

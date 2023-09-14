@@ -7,8 +7,7 @@ import { localize } from '../../../localize';
 import { getProjFiles, getTargetFramework } from '../dotnet/dotnet';
 import { getWorkspaceSetting, updateWorkspaceSetting } from './settings';
 import { getTasks, updateTasks } from './tasks';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { DialogResponses } from '@microsoft/vscode-azext-utils';
+import { DialogResponses, type IActionContext } from '@microsoft/vscode-azext-utils';
 import type { ProjectLanguage, ITask } from '@microsoft/vscode-extension';
 import type { WorkspaceFolder, MessageItem } from 'vscode';
 

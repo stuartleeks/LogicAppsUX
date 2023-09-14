@@ -3,6 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { localSettingsFileName } from '../../constants';
+import { ext } from '../../extensionVariables';
 import { localize } from '../../localize';
 import { parseHostJson } from '../funcConfig/host';
 import { getLocalSettingsJson } from '../utils/appSettings/localSettings';
@@ -24,11 +25,11 @@ import {
   DeploymentTreeItem,
   getFile,
   ParsedSite,
-  AppSettingsTreeItem,
   LogFilesTreeItem,
   SiteFilesTreeItem,
 } from '@microsoft/vscode-azext-azureappservice';
 import type { IDeployContext } from '@microsoft/vscode-azext-azureappservice';
+import { AppSettingsTreeItem } from '@microsoft/vscode-azext-azureappsettings';
 import { AzureWizard, DeleteConfirmationStep, nonNullValue } from '@microsoft/vscode-azext-utils';
 import type { AzExtTreeItem, IActionContext, ISubscriptionContext, TreeItemIconPath } from '@microsoft/vscode-azext-utils';
 import type { ResolvedAppResourceBase } from '@microsoft/vscode-azext-utils/hostapi';
@@ -247,8 +248,8 @@ export class LogicAppResourceTree implements ResolvedAppResourceBase {
       sourceControl,
       contextValuesToAdd: ['azLogicApps'],
     });
-    this.appSettingsTreeItem = new AppSettingsTreeItem(proxyTree, this.site, {
-      contextValuesToAdd: ['azLogicApps'],
+    this.appSettingsTreeItem = new AppSettingsTreeItem(proxyTree, this.site, ext.prefix, {
+      contextValuesToAdd: ['azFunc'],
     });
     this._siteFilesTreeItem = new SiteFilesTreeItem(proxyTree, {
       site: this.site,

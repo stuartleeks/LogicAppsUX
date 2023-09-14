@@ -2,29 +2,25 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { localSettingsFileName, logicAppFilter, viewOutput } from '../../../constants';
+import { localSettingsFileName, viewOutput } from '../../../constants';
 import { ext } from '../../../extensionVariables';
 import { localize } from '../../../localize';
 import { executeOnFunctions } from '../../functionsExtension/executeOnFunctionsExt';
 import { getLocalSettingsJson } from '../../utils/appSettings/localSettings';
+import { pickLogicAppSettings } from '../../utils/pickItem/pickLogicAppSettings';
 import { decryptLocalSettings } from './decryptLocalSettings';
 import { encryptLocalSettings } from './encryptLocalSettings';
 import { getLocalSettingsFile } from './getLocalSettingsFile';
 import type { StringDictionary } from '@azure/arm-appservice';
-import type { IAppSettingsClient } from '@microsoft/vscode-azext-azureappservice';
-import { AppSettingsTreeItem, confirmOverwriteSettings } from '@microsoft/vscode-azext-azureappservice';
+import { confirmOverwriteSettings } from '@microsoft/vscode-azext-azureappservice';
+import type { AppSettingsTreeItem } from '@microsoft/vscode-azext-azureappsettings';
 import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import type { ILocalSettingsJson } from '@microsoft/vscode-extension';
+import type { IAppSettingsClient, ILocalSettingsJson } from '@microsoft/vscode-extension';
 import * as fse from 'fs-extra';
 import * as vscode from 'vscode';
 
 export async function downloadAppSettings(context: IActionContext, node?: AppSettingsTreeItem): Promise<void> {
-  if (!node) {
-    node = await ext.rgApi.pickAppResource<AppSettingsTreeItem>(context, {
-      filter: logicAppFilter,
-      expectedChildContextValue: new RegExp(AppSettingsTreeItem.contextValue),
-    });
-  }
+  node ??= await pickLogicAppSettings(context);
 
   const client: IAppSettingsClient = await node.clientProvider.createClient(context);
 

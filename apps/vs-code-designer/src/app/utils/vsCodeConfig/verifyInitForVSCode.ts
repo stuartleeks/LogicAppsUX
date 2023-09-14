@@ -7,8 +7,7 @@ import { localize } from '../../../localize';
 import { initProjectForVSCode } from '../../commands/initProjectForVSCode/initProjectForVSCode';
 import { tryParseFuncVersion } from '../funcCoreTools/funcVersion';
 import { getWorkspaceSetting } from './settings';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { DialogResponses, nonNullOrEmptyValue } from '@microsoft/vscode-azext-utils';
+import { DialogResponses, nonNullOrEmptyValue, type IActionContext } from '@microsoft/vscode-azext-utils';
 import type { ProjectLanguage, FuncVersion } from '@microsoft/vscode-extension';
 
 /**

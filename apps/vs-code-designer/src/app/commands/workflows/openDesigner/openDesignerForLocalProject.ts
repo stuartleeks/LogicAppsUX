@@ -293,8 +293,8 @@ export default class OpenDesignerForLocalProject extends OpenDesignerBase {
       await sendRequest(this.context, {
         url,
         method: HTTP_METHODS.POST,
-        headers: { ['Content-Type']: 'application/json' },
-        body: { properties: workflow },
+        headers: { ['Content-Type']: 'application/json' } as any, // TODO: Fix this
+        body: { properties: workflow } as any,
       });
     } catch (error) {
       if (error.statusCode !== 404) {

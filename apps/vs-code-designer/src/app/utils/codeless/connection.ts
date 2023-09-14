@@ -11,6 +11,7 @@ import { getAuthorizationToken } from './getAuthorizationToken';
 import { getParametersJson } from './parameter';
 import { addNewFileInCSharpProject } from './updateBuildFile';
 import { HTTP_METHODS, isString } from '@microsoft/utils-logic-apps';
+import type { AzExtPipelineResponse } from '@microsoft/vscode-azext-azureutils';
 import { nonNullValue } from '@microsoft/vscode-azext-utils';
 import type { IActionContext } from '@microsoft/vscode-azext-utils';
 import type {
@@ -276,7 +277,7 @@ export async function createAclInConnectionIfNeeded(
   const url = `${connectionId}/accessPolicies?api-version=2018-07-01-preview`;
 
   try {
-    const response = await sendAzureRequest(url, identityWizardContext, HTTP_METHODS.GET, node.site.subscription);
+    const response: AzExtPipelineResponse = await sendAzureRequest(url, identityWizardContext, HTTP_METHODS.GET, node.site.subscription);
     connectionAcls = response.parsedBody.value;
   } catch (error) {
     connectionAcls = [];
@@ -304,7 +305,7 @@ async function createAccessPolicyInConnection(
   let connection: any;
 
   try {
-    const response = await sendAzureRequest(getUrl, identityWizardContext, HTTP_METHODS.GET, node.site.subscription);
+    const response: AzExtPipelineResponse = await sendAzureRequest(getUrl, identityWizardContext, HTTP_METHODS.GET, node.site.subscription);
     connection = response.parsedBody;
   } catch (error) {
     throw new Error(`Error in getting connection - ${connectionId}. ${error}`);

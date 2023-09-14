@@ -8,6 +8,7 @@ import type { RemoteWorkflowTreeItem } from '../../tree/remoteWorkflowsTree/Remo
 import type { SlotTreeItem } from '../../tree/slotsTree/SlotTreeItem';
 import { sendAzureRequest } from '../requestUtils';
 import { HTTP_METHODS } from '@microsoft/utils-logic-apps';
+import type { AzExtPipelineResponse } from '@microsoft/vscode-azext-azureutils';
 import type { IActionContext } from '@microsoft/vscode-azext-utils';
 import type {
   IParametersFileContent,
@@ -60,14 +61,14 @@ export async function getWorkflow(
   context: IActionContext
 ): Promise<IWorkflowFileContent> {
   const url = `${node.id}/hostruntime/admin/vfs/${workflow.name}/workflow.json?api-version=${workflowAppApiVersion}&relativepath=1`;
-  const response = await sendAzureRequest(url, context, HTTP_METHODS.GET, node.site.subscription);
+  const response: AzExtPipelineResponse = await sendAzureRequest(url, context, HTTP_METHODS.GET, node.site.subscription);
   return response.parsedBody;
 }
 
 export async function listWorkflows(node: SlotTreeItem, context: IActionContext): Promise<Record<string, any>[]> {
   const url = `${node.id}/hostruntime${managementApiPrefix}/workflows?api-version=${workflowAppApiVersion}`;
   try {
-    const response = await sendAzureRequest(url, context, 'GET', node.site.subscription);
+    const response: AzExtPipelineResponse = await sendAzureRequest(url, context, 'GET', node.site.subscription);
     return response.parsedBody;
   } catch (error) {
     if (error.statusCode === 404) {

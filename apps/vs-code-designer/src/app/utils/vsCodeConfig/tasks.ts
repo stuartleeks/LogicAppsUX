@@ -3,8 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import type { ITask, ITaskInputs } from '@microsoft/vscode-extension';
-import type { WorkspaceConfiguration, WorkspaceFolder } from 'vscode';
-import { workspace } from 'vscode';
+import { workspace, type WorkspaceConfiguration, type WorkspaceFolder } from 'vscode';
 
 const tasksKey = 'tasks';
 const inputsKey = 'inputs';

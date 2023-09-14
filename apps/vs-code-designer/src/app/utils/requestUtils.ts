@@ -6,11 +6,14 @@ import { timeoutKey } from '../../constants';
 import { ext } from '../../extensionVariables';
 import { localize } from '../../localize';
 import { getWorkspaceSetting } from './vsCodeConfig/settings';
-import { RestError, WebResource } from '@azure/ms-rest-js';
-import type { HttpOperationResponse, RequestPrepareOptions, ServiceClient } from '@azure/ms-rest-js';
-import { HTTP_METHODS, isString } from '@microsoft/utils-logic-apps';
+import type { ServiceClient } from '@azure/core-client';
+import type { PipelineRequestOptions, PipelineResponse } from '@azure/core-rest-pipeline';
+import { createPipelineRequest } from '@azure/core-rest-pipeline';
+import { RestError } from '@azure/ms-rest-js';
+import type { HTTP_METHODS } from '@microsoft/utils-logic-apps';
+import { isString } from '@microsoft/utils-logic-apps';
 import { createGenericClient, sendRequestWithTimeout } from '@microsoft/vscode-azext-azureutils';
-import type { AzExtRequestPrepareOptions } from '@microsoft/vscode-azext-azureutils';
+import type { AzExtPipelineResponse, AzExtRequestPrepareOptions } from '@microsoft/vscode-azext-azureutils';
 import { nonNullProp, nonNullValue, parseError } from '@microsoft/vscode-azext-utils';
 import type { IActionContext, ISubscriptionContext } from '@microsoft/vscode-azext-utils';
 import type { IIdentityWizardContext } from '@microsoft/vscode-extension';
@@ -31,25 +34,26 @@ export async function sendAzureRequest(
   context: IActionContext | IIdentityWizardContext,
   method: HTTP_METHODS = 'GET',
   subscriptionContext?: ISubscriptionContext
-): Promise<HttpOperationResponse> {
+): Promise<PipelineResponse> {
   const client: ServiceClient = await createGenericClient(context, subscriptionContext);
   return sendAndParseResponse(client, { url, method });
 }
 
-export async function sendRequest(context: IActionContext, options: RequestPrepareOptions): Promise<string> {
+export async function sendRequest(context: IActionContext, options: PipelineRequestOptions): Promise<string> {
   const client: ServiceClient = await createGenericClient(context, undefined);
   const response = await sendAndParseResponse(client, options);
   return response.bodyAsText;
 }
 
-async function sendAndParseResponse(client: ServiceClient, options: RequestPrepareOptions): Promise<HttpOperationResponse> {
+async function sendAndParseResponse(client: ServiceClient, options: PipelineRequestOptions): Promise<PipelineResponse> {
   try {
-    const response = await client.sendRequest(options);
+    const request = createPipelineRequest(options);
+    const response: AzExtPipelineResponse = await client.sendRequest(request);
     if (response.status < 200 || response.status >= 300) {
       const errorMessage: string = response.bodyAsText
         ? parseError(response.parsedBody || response.bodyAsText).message
         : localize('unexpectedStatusCode', 'Unexpected status code: {0}', response.status);
-      throw new RestError(errorMessage, undefined, response.status, /*request*/ undefined, response, response.bodyAsText);
+      throw new RestError(errorMessage, undefined, response.status, /*request*/ undefined, response as any, response.bodyAsText);
     } else {
       return response;
     }
@@ -73,7 +77,7 @@ async function sendAndParseResponse(client: ServiceClient, options: RequestPrepa
 export async function sendRequestWithExtTimeout(
   context: IActionContext,
   options: AzExtRequestPrepareOptions
-): Promise<HttpOperationResponse> {
+): Promise<AzExtPipelineResponse> {
   const timeout: number = nonNullValue(getWorkspaceSetting<number>(timeoutKey), timeoutKey) * 1000;
 
   try {
@@ -97,15 +101,14 @@ export async function sendRequestWithExtTimeout(
  */
 export async function downloadFile(
   context: IActionContext,
-  requestOptionsOrUrl: string | RequestPrepareOptions,
+  requestOptionsOrUrl: string | PipelineRequestOptions,
   filePath: string
 ): Promise<void> {
   await fse.ensureDir(path.dirname(filePath));
-  const request: WebResource = new WebResource();
-  request.prepare(isString(requestOptionsOrUrl) ? { method: HTTP_METHODS.GET, url: requestOptionsOrUrl } : requestOptionsOrUrl);
-  request.streamResponseBody = true;
+  const request = createPipelineRequest(isString(requestOptionsOrUrl) ? { method: 'GET', url: requestOptionsOrUrl } : requestOptionsOrUrl);
+  request.streamResponseStatusCodes = new Set([Number.POSITIVE_INFINITY]);
   const client: ServiceClient = await createGenericClient(context, undefined);
-  const response: HttpOperationResponse = await client.sendRequest(request);
+  const response: AzExtPipelineResponse = await client.sendRequest(request);
   const stream: NodeJS.ReadableStream = nonNullProp(response, 'readableStreamBody');
 
   await new Promise((resolve, reject): void => {

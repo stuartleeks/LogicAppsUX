@@ -8,8 +8,7 @@ import { selectWorkspaceFile } from '../../utils/workspace';
 import type { IActionContext } from '@microsoft/vscode-azext-utils';
 import * as fse from 'fs-extra';
 import * as path from 'path';
-import type { WorkspaceFolder } from 'vscode';
-import { workspace } from 'vscode';
+import { workspace, type WorkspaceFolder } from 'vscode';
 
 /**
  * Returns local settings file path if exists and if only one project. Otherwise, prompts a dialog

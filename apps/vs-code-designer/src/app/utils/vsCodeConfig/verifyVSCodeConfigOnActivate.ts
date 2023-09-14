@@ -9,10 +9,8 @@ import { tryParseFuncVersion } from '../funcCoreTools/funcVersion';
 import { tryGetFunctionProjectRoot } from '../verifyIsProject';
 import { getWorkspaceSetting, updateGlobalSetting } from './settings';
 import { verifyTargetFramework } from './verifyTargetFramework';
-import type { IActionContext } from '@microsoft/vscode-azext-utils';
-import { callWithTelemetryAndErrorHandling, DialogResponses } from '@microsoft/vscode-azext-utils';
-import type { FuncVersion } from '@microsoft/vscode-extension';
-import { ProjectLanguage } from '@microsoft/vscode-extension';
+import { callWithTelemetryAndErrorHandling, DialogResponses, type IActionContext } from '@microsoft/vscode-azext-utils';
+import { ProjectLanguage, type FuncVersion } from '@microsoft/vscode-extension';
 import * as path from 'path';
 import type { WorkspaceFolder, MessageItem } from 'vscode';
 

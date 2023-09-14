@@ -50,10 +50,16 @@ import { switchDebugMode } from './workflows/switchDebugMode/switchDebugMode';
 import { switchToDotnetProject } from './workflows/switchToDotnetProject';
 import { useSQLStorage } from './workflows/useSQLStorage';
 import { viewContent } from './workflows/viewContent';
-import { AppSettingsTreeItem, AppSettingTreeItem, registerSiteCommand } from '@microsoft/vscode-azext-azureappservice';
-import type { FileTreeItem } from '@microsoft/vscode-azext-azureappservice';
-import { registerCommand, registerCommandWithTreeNodeUnwrapping, unwrapTreeNodeCommandCallback } from '@microsoft/vscode-azext-utils';
-import type { AzExtTreeItem, IActionContext, AzExtParentTreeItem } from '@microsoft/vscode-azext-utils';
+import { registerSiteCommand, type FileTreeItem } from '@microsoft/vscode-azext-azureappservice';
+import { AppSettingTreeItem, AppSettingsTreeItem } from '@microsoft/vscode-azext-azureappsettings';
+import {
+  registerCommand,
+  registerCommandWithTreeNodeUnwrapping,
+  unwrapTreeNodeCommandCallback,
+  type AzExtTreeItem,
+  type IActionContext,
+  type AzExtParentTreeItem,
+} from '@microsoft/vscode-azext-utils';
 
 export function registerCommands(): void {
   registerCommandWithTreeNodeUnwrapping(extensionCommand.openDesigner, openDesigner);

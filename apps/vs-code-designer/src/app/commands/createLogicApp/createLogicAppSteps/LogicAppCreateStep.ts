@@ -253,7 +253,7 @@ async function getStorageConnectionStrings(context: IFunctionAppWizardContext): 
     websiteContentAzureFileValue: '',
   };
 
-  const azureStorageConnectionString = (await getStorageConnectionString(context)).connectionString;
+  const azureStorageConnectionString: string = (await getStorageConnectionString(context)).connectionString;
 
   if (context.customLocation) {
     if (context.storageType === StorageOptions.SQL) {

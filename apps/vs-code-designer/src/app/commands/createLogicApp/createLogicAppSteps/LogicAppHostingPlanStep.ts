@@ -3,9 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { localize } from '../../../../localize';
-import { setSiteOS } from '../../../tree/subscriptionTree/SubscriptionTreeItem';
 import type { IAppServiceWizardContext } from '@microsoft/vscode-azext-azureappservice';
-import { AppServicePlanListStep } from '@microsoft/vscode-azext-azureappservice';
+import { AppServicePlanListStep, WebsiteOS } from '@microsoft/vscode-azext-azureappservice';
 import { AzureWizardPromptStep } from '@microsoft/vscode-azext-utils';
 import type { IAzureQuickPickItem, IWizardOptions } from '@microsoft/vscode-azext-utils';
 
@@ -39,5 +38,13 @@ export class LogicAppHostingPlanStep extends AzureWizardPromptStep<AppServiceWiz
     } else {
       return undefined;
     }
+  }
+}
+
+export function setSiteOS(context: IAppServiceWizardContext): void {
+  if (context.customLocation) {
+    context.newSiteOS = WebsiteOS.linux;
+  } else {
+    context.newSiteOS = WebsiteOS.windows;
   }
 }

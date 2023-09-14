@@ -2,10 +2,11 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import type { AzureAccountTreeItemWithProjects } from './app/tree/AzureAccountTreeItemWithProjects';
+import type { LogicAppsBranchDataProvider } from './app/tree/LogicAppsBranchDataProvider';
 import { func } from './constants';
-import type { IAzExtOutputChannel } from '@microsoft/vscode-azext-utils';
+import type { IAzExtOutputChannel, IExperimentationServiceAdapter, TreeElementStateManager } from '@microsoft/vscode-azext-utils';
 import type { AzureHostExtensionApi } from '@microsoft/vscode-azext-utils/hostapi';
+import type { AzureResourcesExtensionApi } from '@microsoft/vscode-azureresources-api';
 import type * as cp from 'child_process';
 import type { ExtensionContext, WebviewPanel } from 'vscode';
 
@@ -23,12 +24,15 @@ export namespace ext {
   export const prefix = 'azureLogicAppsStandard';
 
   // Tree item view
-  export let azureAccountTreeItem: AzureAccountTreeItemWithProjects;
+  export let branchDataProvider: LogicAppsBranchDataProvider;
   export const treeViewName = 'azLogicApps';
   export let deploymentFolderPath: string;
 
   // Resource group API
   export let rgApi: AzureHostExtensionApi;
+  export let rgApiV2: AzureResourcesExtensionApi;
+  export let experimentationService: IExperimentationServiceAdapter;
+  export let state: TreeElementStateManager;
 
   // Functions
   export const funcCliPath: string = func;
