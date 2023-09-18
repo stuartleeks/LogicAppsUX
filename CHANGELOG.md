@@ -1,4 +1,12 @@
 # Logic Apps Designer
+### [2.68.1](https://github.com/Azure/LogicAppsUX/compare/v2.68.0...v2.68.1) (2023-09-18)
+
+
+### Bug Fixes
+
+* **designer:** If possible convert expression into output token ([#3316](https://github.com/Azure/LogicAppsUX/issues/3316)) ([ddeecde](https://github.com/Azure/LogicAppsUX/commit/ddeecde1a849bc12cc634d86ade33b2528b75a17))
+* **meta:** Fixed branch name in production build action ([#3336](https://github.com/Azure/LogicAppsUX/issues/3336)) ([c045b2b](https://github.com/Azure/LogicAppsUX/commit/c045b2b2fa16c6fb4d8bd641f77d85695bdaecfe))
+
 ## [2.68.0](https://github.com/Azure/LogicAppsUX/compare/v2.67.0...v2.68.0) (2023-09-14)
 
 
