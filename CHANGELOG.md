@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.66.3](https://github.com/Azure/LogicAppsUX/compare/v2.66.2...v2.66.3) (2023-09-21)
+
+
+### Bug Fixes
+
+* **designer:** Add z-index to Errors panel ([#3353](https://github.com/Azure/LogicAppsUX/issues/3353)) ([c027060](https://github.com/Azure/LogicAppsUX/commit/c0270600a668492f86c85c43b45c86b1c49366b3))
+
 ### [2.66.2](https://github.com/Azure/LogicAppsUX/compare/v2.66.1...v2.66.2) (2023-09-13)
 
 
