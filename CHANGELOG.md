@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.66.4](https://github.com/Azure/LogicAppsUX/compare/v2.66.3...v2.66.4) (2023-09-21)
+
+
+### Bug Fixes
+
+* **designer:** Don't throw for MISSING_DATA error in IntlProvider ([#3362](https://github.com/Azure/LogicAppsUX/issues/3362)) ([0ffd48a](https://github.com/Azure/LogicAppsUX/commit/0ffd48aaee2e17a33ad73179348fb9652a4f6d57))
+
 ### [2.66.3](https://github.com/Azure/LogicAppsUX/compare/v2.66.2...v2.66.3) (2023-09-21)
 
 
