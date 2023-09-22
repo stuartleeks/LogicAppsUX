@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.66.5](https://github.com/Azure/LogicAppsUX/compare/v2.66.4...v2.66.5) (2023-09-22)
+
+
+### Bug Fixes
+
+* **designer:** Fix exception due to usage of LoggingService in DesignerProvider ([#3365](https://github.com/Azure/LogicAppsUX/issues/3365)) ([5a29760](https://github.com/Azure/LogicAppsUX/commit/5a297603ce6e978bdbec0c6606d2dad2870590cd))
+
 ### [2.66.4](https://github.com/Azure/LogicAppsUX/compare/v2.66.3...v2.66.4) (2023-09-21)
 
 
