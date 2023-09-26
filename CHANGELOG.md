@@ -1,4 +1,11 @@
 # Logic Apps Designer
+### [2.66.6](https://github.com/Azure/LogicAppsUX/compare/v2.66.5...v2.66.6) (2023-09-26)
+
+
+### Bug Fixes
+
+* **designer:** Fix combobox filtering to use display name instead of value ([#3380](https://github.com/Azure/LogicAppsUX/issues/3380)) ([ef0da11](https://github.com/Azure/LogicAppsUX/commit/ef0da111b4b432f29f78239fb9ee20330dfc6044))
+
 ### [2.66.5](https://github.com/Azure/LogicAppsUX/compare/v2.66.4...v2.66.5) (2023-09-22)
 
 
